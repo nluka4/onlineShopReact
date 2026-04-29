@@ -1,11 +1,32 @@
 import { Header } from "../components/Header";
 import { products } from "../../starting-code/ecommerce-project-main/data/products";
 import "./HomePage.css";
+import { useEffect, useState } from "react";
 
 export function HomePage() {
-  return (
+    const [data,setData] = useState(null);
+    useEffect(()=>{
+        
+
+            async function getData(){
+                const response = await fetch("http://localhost:3300/api/products");
+                const dataJSON = await response.json();
+                setData(dataJSON);
+            }
+
+            getData();
+        
+
+    },[]);
+    
+    useEffect(() =>{
+        console.log(data);
+    },[data]);
+    return (
     <>
       <Header />
+
+    
 
       <div className="home-page">
         <div className="products-grid">
